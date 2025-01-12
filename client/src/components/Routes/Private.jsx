@@ -1,27 +1,26 @@
-import React from "react";
-import Layout from "../../components/Layout/Layout";
-import UserMenu from "../../components/Layout/UserMenu";
-import { useAuth } from "../../context/auth";
-const Dashboard = () => {
-  const [auth] = useAuth();
-  return (
-    <Layout title={"Dashboard - Ecommerce App"}>
-      <div className="container-flui m-3 p-3">
-        <div className="row">
-          <div className="col-md-3">
-            <UserMenu />
-          </div>
-          <div className="col-md-9">
-            <div className="card w-75 p-3">
-              <h3>{auth?.user?.name}</h3>
-              <h3>{auth?.user?.email}</h3>
-              <h3>{auth?.user?.address}</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Layout>
-  );
-};
+import { useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { Outlet } from "react-router-dom";
+import axios from "axios";
+import Spinner from "../Spinner";
 
-export default Dashboard;
+export default function PrivateRoute() {
+  const [ok, setOk] = useState(false);
+  const { auth, setAuth } = useAuth();
+
+  useEffect(() => {
+    const authCheck = async () => {
+      const res = await axios.get(
+        "http://localhost:8080/api/v1/auth/user-auth"
+      );
+      if (res.data.ok) {
+        setOk(true);
+      } else {
+        setOk(false);
+      }
+    };
+    if (auth?.token) authCheck();
+  }, [auth]);
+
+  return ok ? <Outlet /> : <Spinner />;
+}

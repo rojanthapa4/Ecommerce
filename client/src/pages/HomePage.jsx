@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "./../components/Layout/Layout";
 import { useAuth } from "../context/AuthContext";
 const HomePage = () => {
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   return (
     <Layout title={"Best offers "}>
       <h1>HomePage</h1>

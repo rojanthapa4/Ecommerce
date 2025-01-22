@@ -17,7 +17,7 @@ const UserMenu = () => {
             to="/dashboard/user/orders"
             className="list-group-item list-group-item-action"
           >
-            Create Product{" "}
+            Orders
           </NavLink>
         </div>
       </div>

@@ -3,9 +3,14 @@ import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import SearchInput from "../Form/SearchInput";
+import useCategory from "../../hooks/useCategory";
+import { useCart } from "../../context/Cart";
+import { Badge } from "antd";
 
 const Header = () => {
   const { auth, setAuth } = useAuth();
+  const { cart } = useCart();
+  const categories = useCategory();
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -55,6 +60,16 @@ const Header = () => {
                       All Categories
                     </Link>
                   </li>
+                  {categories?.map((c) => (
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        to={`/category/${c.slug}`}
+                      >
+                        {c.name}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </li>
 
@@ -76,18 +91,14 @@ const Header = () => {
                   <li className="nav-item dropdown">
                     <NavLink
                       className="nav-link dropdown-toggle"
-                      id="navbarDropdown"
-                      to="#"
+                      href="#"
                       role="button"
-                      aria-expanded="false"
                       data-bs-toggle="dropdown"
+                      style={{ border: "none" }}
                     >
                       {auth?.user?.name}
                     </NavLink>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="navbarDropdown"
-                    >
+                    <ul className="dropdown-menu">
                       <li>
                         <NavLink
                           to={`/dashboard/${
@@ -112,9 +123,11 @@ const Header = () => {
                 </>
               )}
               <li className="nav-item">
-                <NavLink to="/cart" className="nav-link">
-                  Cart (0)
-                </NavLink>
+                <Badge count={cart?.length} showZero>
+                  <NavLink to="/cart" className="nav-link">
+                    Cart
+                  </NavLink>
+                </Badge>
               </li>
             </ul>
           </div>

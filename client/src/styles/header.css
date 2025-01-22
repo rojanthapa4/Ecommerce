@@ -24,13 +24,9 @@
 
 .dropdown-menu {
   position: absolute;
-  z-index: 1050; /* Ensures it appears above other elements */
-  display: block; /* For debugging: forces it to display properly */
-  top: 100%; /* Positions below the toggle button */
+  z-index: 1050;
+  display: block;
+  top: 100%;
   left: 0;
-  transform: translate3d(
-    0,
-    0,
-    0
-  ); /* Ensures the dropdown positions correctly */
+  transform: translate3d(0, 0, 0);
 }

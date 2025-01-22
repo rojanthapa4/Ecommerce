@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import "../../styles/header.css";
 import { useAuth } from "../../context/AuthContext";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
+import SearchInput from "../Form/SearchInput";
 
 const Header = () => {
   const { auth, setAuth } = useAuth();
@@ -32,28 +32,41 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <Link to="/" className="navbar-brand">
-              🛒 shopify
+              🛒 Ecommerce App
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <SearchInput />
               <li className="nav-item">
                 <NavLink to="/" className="nav-link ">
                   Home
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink to="/category" className="nav-link ">
-                  Category
-                </NavLink>
+              <li className="nav-item dropdown">
+                <Link
+                  className="nav-link dropdown-toggle"
+                  to={"/categories"}
+                  data-bs-toggle="dropdown"
+                >
+                  Categories
+                </Link>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to={"/categories"}>
+                      All Categories
+                    </Link>
+                  </li>
+                </ul>
               </li>
-              {!auth.user ? (
+
+              {!auth?.user ? (
                 <>
                   <li className="nav-item">
-                    <NavLink to="/register" className="nav-link ">
+                    <NavLink to="/register" className="nav-link">
                       Register
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/login" className="nav-link ">
+                    <NavLink to="/login" className="nav-link">
                       Login
                     </NavLink>
                   </li>
@@ -63,14 +76,18 @@ const Header = () => {
                   <li className="nav-item dropdown">
                     <NavLink
                       className="nav-link dropdown-toggle"
-                      href="#"
+                      id="navbarDropdown"
+                      to="#"
                       role="button"
-                      data-bs-toggle="dropdown"
                       aria-expanded="false"
+                      data-bs-toggle="dropdown"
                     >
                       {auth?.user?.name}
                     </NavLink>
-                    <ul className="dropdown-menu">
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="navbarDropdown"
+                    >
                       <li>
                         <NavLink
                           to={`/dashboard/${
@@ -85,7 +102,7 @@ const Header = () => {
                         <NavLink
                           onClick={handleLogout}
                           to="/login"
-                          className="dropdown-item "
+                          className="dropdown-item"
                         >
                           Logout
                         </NavLink>
@@ -94,7 +111,6 @@ const Header = () => {
                   </li>
                 </>
               )}
-
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
                   Cart (0)

@@ -1,5 +1,5 @@
 .navbar {
-  font-family: "Poppins , sans-serif";
+  font-family: "Poppins", sans-serif;
   font-size: 17px;
   line-height: 26px;
   text-transform: uppercase;
@@ -18,6 +18,19 @@
 
 .navbar-brand {
   font-weight: 700;
-  font-weight: "roboto", sans-serif;
-  letter-spacing: 2px;
+  font-family: "roboto", sans-serif;
+  letter-spacing: 3px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 1050; /* Ensures it appears above other elements */
+  display: block; /* For debugging: forces it to display properly */
+  top: 100%; /* Positions below the toggle button */
+  left: 0;
+  transform: translate3d(
+    0,
+    0,
+    0
+  ); /* Ensures the dropdown positions correctly */
 }

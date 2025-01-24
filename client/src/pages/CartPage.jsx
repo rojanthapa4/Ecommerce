@@ -3,6 +3,7 @@ import Layout from "./../components/Layout/Layout";
 import { useCart } from "../context/Cart";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import "../styles/cart.css";
 const CartPage = () => {
   const { auth } = useAuth();
   const { cart, setCart } = useCart();

@@ -7,7 +7,9 @@ const CartProvider = ({ children }) => {
   useEffect(() => {
     let existingCart = JSON.parse(localStorage.getItem("cart"));
     if (existingCart) {
+      existingCart = existingCart.filter((item) => item !== null); // Remove null entries
       setCart(existingCart);
+      localStorage.setItem("cart", JSON.stringify(existingCart)); // Update storage
     }
   }, []);
 

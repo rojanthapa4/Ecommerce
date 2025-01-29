@@ -4,6 +4,7 @@ import { useCart } from "../context/Cart";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/cart.css";
+
 const CartPage = () => {
   const { auth } = useAuth();
   const { cart, setCart } = useCart();
@@ -27,8 +28,9 @@ const CartPage = () => {
   //delete item
   const removeCartItem = (pid) => {
     try {
-      let myCart = [...cart];
+      let myCart = [...cart].filter((item) => item !== null);
       let index = myCart.findIndex((item) => item._id === pid);
+      if (index === -1) return;
       myCart.splice(index, 1);
       setCart(myCart);
       localStorage.setItem("cart", JSON.stringify(myCart));
